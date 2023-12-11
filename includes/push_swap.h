@@ -20,4 +20,15 @@
 //Macros
 # define ERROR_MESSAGE "Error\n"
 
+//Structures
+typedef struct s_stack
+{
+	int		value;
+	t_stack	*prev;
+	t_stack	*next;
+}	t_stack;
+
+//Prototypes
+void	check_args(char **args_list);
+
 #endif //PUSH_SWAP_H
