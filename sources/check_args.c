@@ -10,33 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-_Bool	args_are_numbers(char **args_list);
-_Bool	args_are_duplicates(char **args_list);
-_Bool	args_are_integers(char **args_list);
+#include "../includes/push_swap.h"
+
+bool	args_are_numbers(char **args_list);
+bool	args_are_duplicates(char **args_list);
+bool	args_are_integers(char **args_list);
 
 void	check_args(char **args_list)
 {
 	if (!args_are_numbers(args_list) || args_are_duplicates(args_list)
 		|| !args_are_integers(args_list))
-		handle_error(ERROR_MESSAGE);
+		ft_handle_error(ERROR_MESSAGE);
 }
 
-_Bool	args_are_numbers(char **args_list)
+bool	args_are_numbers(char **args_list)
 {
 	while (*args_list)
 	{
 		while (**args_list)
 		{
 			if (!ft_isdigit(**args_list))
-				return (0);
+				return (false);
 			(*args_list)++;
 		}
 		args_list++;
 	}
-	return (1);
+	return (true);
 }
 
-_Bool	args_are_duplicates(char **args_list)
+bool	args_are_duplicates(char **args_list)
 {
 	char	**temp_args_list;
 
@@ -45,22 +47,22 @@ _Bool	args_are_duplicates(char **args_list)
 		temp_args_list = args_list;
 		while (*temp_args_list)
 		{
-			if (ft_strcmp(*args_list, *temp_args_list) == 0)
-				return (1);
+			if (!ft_strncmp(*args_list, *temp_args_list, ft_strlen(*args_list)))
+				return (true);
 			temp_args_list++;
 		}
 		args_list++;
 	}
-	return (0);
+	return (false);
 }
 
-_Bool	args_are_integers(char **args_list)
+bool	args_are_integers(char **args_list)
 {
 	while (*args_list)
 	{
-		if (ft_atoi(*args_list) > INT_MAX || ft_atoi(*args_list) < INT_MIN)
-			return (0);
+		if (ft_atol(*args_list) > INT_MAX || ft_atol(*args_list) < INT_MIN)
+			return (false);
 		args_list++;
 	}
-	return (1);
+	return (true);
 }

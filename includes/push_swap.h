@@ -15,7 +15,7 @@
 
 //Headers
 # include "../libraries/libft/includes/libft.h"
-# include <stdlib.h>
+# include <limits.h>
 
 //Macros
 # define ERROR_MESSAGE "Error\n"
@@ -23,9 +23,9 @@
 //Structures
 typedef struct s_stack
 {
-	int		value;
-	t_stack	*prev;
-	t_stack	*next;
+	int				value;
+	struct s_stack	*prev;
+	struct s_stack	*next;
 }	t_stack;
 
 //Prototypes

@@ -32,17 +32,18 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
+	args_list = NULL;
 	if (!argv || argc < 2)
 		ft_handle_error(ERROR_MESSAGE);
 	if (argc == 2)
-		args_list = split(argv[1]);
+		args_list = ft_split(argv[1], ' ');
 	else
 		args_list = argv + 1;
 	check_args(args_list);
 	stack_a = create_stack(args_list);
 	stack_b = NULL;
-	if (args_are_sorted())
-		exit(EXIT_SUCCESS);
+	//if (args_are_sorted())
+	//	exit(EXIT_SUCCESS);
 	//TODO: create ordering algorithm
 	//TODO: conditional structure to choose the best algorithm for args number
 	free_stack(stack_a);
