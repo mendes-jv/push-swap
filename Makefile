@@ -11,7 +11,6 @@
 # **************************************************************************** #
 
 # Variables
-
 NAME				:= push_swap
 
 SOURCES_DIR			:= sources/
@@ -29,39 +28,36 @@ MKDIR				:= mkdir -p
 RM					:= rm -rf
 
 # Sources
-
-SOURCE_FILES		:= push_swap
-
-CLIENT_SOURCES		:= $(addprefix $(SOURCES_DIR), $(addsuffix .c, $(CLIENT_FILES)))
-SERVER_SOURCES		:= $(addprefix $(SOURCES_DIR), $(addsuffix .c, $(SERVER_FILES)))
-CLIENT_OBJECTS		:= $(addprefix $(OBJECTS_DIR), $(addsuffix .o, $(CLIENT_FILES)))
-SERVER_OBJECTS		:= $(addprefix $(OBJECTS_DIR), $(addsuffix .o, $(SERVER_FILES)))
+FILES				:= push_swap check_args
+SOURCES				:= $(addprefix $(SOURCES_DIR), $(addsuffix .c, $(FILES)))
+OBJECTS				:= $(addprefix $(OBJECTS_DIR), $(addsuffix .o, $(FILES)))
 LIBFT				:= $(addprefix $(LIBFT_DIR), $(LIBFT_FILE))
-
 LIBFT_HEADER		:= $(addprefix $(LIBFT_DIR), includes/libft.h)
 HEADERS				:= -I $(HEADERS_DIR)
 
-# colors
+# Colors
+RED   				:= \033[0;31m
 GREEN  				:= \033[0;32m
 RESET  		 		:= \033[0m
 
 # Rules
-
 .PHONY: all clean fclean re
 
-all: libraries programs
-	if [ -f $(NAME) ] then \
-		@printf "$(GREEN)Compiled $(NAME) successfully!$(RESET)\n"
-	else
-		@printf "$(GREEN)$(NAME) is already compiled!$(RESET)\n"
-	fi
+all:
+	@$(MAKE) -s libraries
+	@if [ ! -f $(NAME) ]; then \
+		$(MAKE) -s programs; \
+    	printf "$(GREEN)Compiled $(NAME) successfully!$(RESET)\n"; \
+    else \
+    	printf "$(RED)$(NAME) is already compiled!$(RESET)\n"; \
+    fi
 
 libraries: $(LIBFT)
 
 programs: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) $(INCLUDES)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) $(INCLUDES);
 
 $(LIBFT):
 	@$(MAKE_LIBS) $(LIBFT_DIR)
@@ -71,22 +67,30 @@ $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 cleanlibft:
+	@$(MAKE_LIBS) $(LIBFT_DIR) clean
+
+fcleanlibft:
 	@$(MAKE_LIBS) $(LIBFT_DIR) fclean
 
-clean: cleanlibft
-	if [ -d $(OBJECTS_DIR) ] then \
-		@$(RM) $(OBJECTS_DIR)
-		@printf "$(GREEN)Cleaned objects from $(NAME) successfully!$(RESET)\n"
-	else
-		@printf "$(GREEN)$(NAME) objects are already cleaned!$(RESET)\n"
+clean:
+	@if [ -f $(NAME) ]; then \
+		$(MAKE) -s cleanlibft; \
+	else \
+		printf "$(RED)$(LIBFT_FILE) is not compiled yet!$(RESET)\n"; \
+	fi
+	@if [ -d $(OBJECTS_DIR) ]; then \
+		$(RM) $(OBJECTS_DIR); \
+		printf "$(GREEN)Cleaned objects from $(NAME) successfully!$(RESET)\n"; \
+	else \
+		printf "$(RED)Objects from $(NAME) are already cleaned!$(RESET)\n"; \
 	fi
 
-fclean: clean
-	if [ -f $(NAME) ] then \
-		@$(RM) $(NAME)
-		@printf "$(GREEN)Cleaned $(CLIENT_NAME) and $(SERVER_NAME) successfully!$(RESET)\n"
-	else
-		@printf "$(GREEN)File $(NAME) is already cleaned!$(RESET)\n"
+fclean: clean fcleanlibft
+	@if [ -f $(NAME) ]; then \
+		$(RM) $(NAME); \
+		printf "$(GREEN)Removed $(NAME) file successfully!$(RESET)\n"; \
+	else \
+		printf "$(RED)File $(NAME) is already removed!$(RESET)\n"; \
 	fi
 
 re: fclean
