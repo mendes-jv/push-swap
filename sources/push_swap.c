@@ -12,72 +12,49 @@
 
 #include "../includes/push_swap.h"
 
-t_stack	*create_stack(char **args_list);
-
-void	free_stack(t_stack *stack)
-{
-	t_stack	*temp_stack;
-
-	while (stack)
-	{
-		temp_stack = stack;
-		stack = stack->next;
-		free(temp_stack);
-	}
-}
+void	init_stacks(t_stack *a, t_stack *b, char **args_list);
 
 int	main(int argc, char **argv)
 {
 	char	**args_list;
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	t_stack	a;
+	t_stack	b;
 
 	args_list = NULL;
 	if (!argv || argc < 2)
 		ft_handle_error(ERROR_MESSAGE);
-	if (argc == 2)
+	else if (argc == 2)
 		args_list = ft_split(argv[1], ' ');
 	else
 		args_list = argv + 1;
-	check_args(args_list);
-	stack_a = create_stack(args_list);
-	stack_b = NULL;
-	//if (args_are_sorted())
-	//	exit(EXIT_SUCCESS);
-	//TODO: create ordering algorithm
-	//TODO: conditional structure to choose the best algorithm for args number
-	free_stack(stack_a);
+	check_args_list(args_list);
+	init_stacks(&a, &b, args_list);
+	sort_stack(&a, &b);
+	//free stacks nodes
 	return (EXIT_SUCCESS);
 }
 
-t_stack	*create_stack(char **args_list)
+void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 {
-	t_stack	*stack;
-	t_stack	*temp_stack;
-	t_stack	*latest_element;
+	t_node	*bottom_node;
+	t_node	*top_node;
+	t_node	*temp_node;
 
-	stack = NULL;
-	temp_stack = NULL;
-	stack = malloc(sizeof(t_stack));
-	if (!stack)
-		ft_handle_error(ERROR_MESSAGE);
-	stack->value = ft_atoi(*args_list);
-	stack->prev = NULL;
-	stack->next = NULL;
-	args_list++;
-
-	latest_element = stack;
+	bottom_node = malloc(sizeof(t_node));
+	if (!bottom_node)
+		return ; //TODO: Change to handle error
+	*bottom_node = (t_node) {ft_atoi((*args_list)++), NULL, NULL};
+	temp_node = bottom_node;
 	while (*args_list)
 	{
-		temp_stack = malloc(sizeof(t_stack));
-		if (!temp_stack)
-			ft_handle_error(ERROR_MESSAGE);
-		temp_stack->value = ft_atoi(*args_list);
-		temp_stack->prev = latest_element;
-		temp_stack->next = NULL;
-		latest_element->next = temp_stack;
-		latest_element = temp_stack;
+		top_node = malloc(sizeof(t_node));
+		if (!top_node)
+			return ; //TODO: Change to handle error
+		*top_node = (t_node) {ft_atoi(*args_list), temp_node, NULL};
+		temp_node->next = top_node;
+		a->size++;
 		args_list++;
 	}
-	return (stack);
+	*a = (t_stack) {a->size, top_node, bottom_node};
+	*b = ((t_stack) {0, NULL, NULL});
 }

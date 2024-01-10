@@ -19,16 +19,34 @@
 
 //Macros
 # define ERROR_MESSAGE "Error\n"
+# define A 0b1
+# define B 0b10
+# define AB 0b11
 
-//Structures
-typedef struct s_stack
+//Typedefs
+typedef struct s_node
 {
 	int				value;
-	struct s_stack	*prev;
-	struct s_stack	*next;
+	struct s_node	*prev;
+	struct s_node	*next;
+}	t_node;
+typedef struct s_stack
+{
+	size_t	size;
+	t_node	*top;
+	t_node	*bottom;
 }	t_stack;
+typedef void	(*t_one_stack)(t_stack *a);
+typedef void	(*t_double_stacks)(t_stack *a, t_stack *b);
 
 //Prototypes
-void	check_args(char **args_list);
+void	check_args_list(char **args_list);
+void	sort_stack(t_stack *a, t_stack *b);
+void	push(t_stack *a, t_stack *b);
+void	swap(t_stack *a);
+void	rotate(t_stack *a);
+void	reverse_rotate(t_stack *a);
+void	apply_move(t_stack *a, t_stack *b, char *move);
+
 
 #endif //PUSH_SWAP_H

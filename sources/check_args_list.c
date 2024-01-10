@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   check_args_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jovicto2 <jovicto2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,18 +12,18 @@
 
 #include "../includes/push_swap.h"
 
-bool	args_are_numbers(char **args_list);
-bool	args_are_duplicates(char **args_list);
-bool	args_are_integers(char **args_list);
+static bool	args_are_numbers(char **args_list);
+static bool	args_are_duplicates(char **args_list);
+static bool	args_are_integers(char **args_list);
 
-void	check_args(char **args_list)
+void	check_args_list(char **args_list)
 {
 	if (!args_are_numbers(args_list) || args_are_duplicates(args_list)
 		|| !args_are_integers(args_list))
 		ft_handle_error(ERROR_MESSAGE);
 }
 
-bool	args_are_numbers(char **args_list)
+static bool	args_are_numbers(char **args_list)
 {
 	while (*args_list)
 	{
@@ -38,7 +38,7 @@ bool	args_are_numbers(char **args_list)
 	return (true);
 }
 
-bool	args_are_duplicates(char **args_list)
+static bool	args_are_duplicates(char **args_list)
 {
 	char	**temp_args_list;
 
@@ -56,7 +56,7 @@ bool	args_are_duplicates(char **args_list)
 	return (false);
 }
 
-bool	args_are_integers(char **args_list)
+static bool	args_are_integers(char **args_list)
 {
 	while (*args_list)
 	{
