@@ -36,8 +36,9 @@ typedef struct s_stack
 	t_node	*top;
 	t_node	*bottom;
 }	t_stack;
-typedef void	(*t_one_stack)(t_stack *a);
-typedef void	(*t_double_stacks)(t_stack *a, t_stack *b);
+typedef void	(*t_move_stack)(t_stack *a);
+typedef void	(*t_push_stack)(t_stack *a, t_stack *b);
+typedef char	t_byte;
 
 //Prototypes
 void	check_args_list(char **args_list);
@@ -46,7 +47,7 @@ void	push(t_stack *a, t_stack *b);
 void	swap(t_stack *a);
 void	rotate(t_stack *a);
 void	reverse_rotate(t_stack *a);
-void	apply_move(t_stack *a, t_stack *b, char *move);
+void	apply_move(t_stack *a, t_stack *b, t_move_stack move, t_byte stacks);
 
 
 #endif //PUSH_SWAP_H
