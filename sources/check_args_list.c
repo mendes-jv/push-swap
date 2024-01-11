@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-static bool	args_are_numbers(char **args_list);
+static bool args_are_numbers(char **args_list);
 static bool	args_are_duplicates(char **args_list);
 static bool	args_are_integers(char **args_list);
 

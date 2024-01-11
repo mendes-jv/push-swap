@@ -1,10 +1,10 @@
 #include "../includes/push_swap.h"
 
-static void	print_moves(t_one_stack move, char stacks);
+static void	print_moves(void *move, t_byte stacks);
 
-void	apply_move(t_stack *a, t_stack *b, t_one_stack move, char stacks)
+void	apply_move(t_stack *a, t_stack *b, t_move_stack move, t_byte stacks)
 {
-	if ((t_double_stacks)move == push)
+	if ((t_push_stack)move == push)
 	{
 		if (stacks == A)
 			push(a, b);
@@ -21,24 +21,24 @@ void	apply_move(t_stack *a, t_stack *b, t_one_stack move, char stacks)
 	print_moves(move, stacks);
 }
 
-static void	print_moves(t_one_stack move, char stacks)
+static void	print_moves(void *move, t_byte stacks)
 {
-	char	*log_move;
+	char	*move_abbreviation;
 
-	if ((t_double_stacks)move == push)
-		log_move = "p";
+	if (move == push)
+		move_abbreviation = "p";
 	else if (move == swap)
-		log_move = "s";
+		move_abbreviation = "s";
 	else if (move == rotate)
-		log_move = "r";
+		move_abbreviation = "r";
 	else
-		log_move = "rr";
-	ft_putstr_fd(log_move, STDOUT_FILENO);
+		move_abbreviation = "rr";
+	ft_putstr_fd(move_abbreviation, STDOUT_FILENO);
 	if (stacks == A)
 		ft_putstr_fd("a", STDOUT_FILENO);
 	else if (stacks == B)
 		ft_putstr_fd("b", STDOUT_FILENO);
 	else
-		write(STDOUT_FILENO,log_move, sizeof(char));
+		write(STDOUT_FILENO, move_abbreviation, sizeof(char));
 	write(STDOUT_FILENO,"\n", sizeof(char));
 }

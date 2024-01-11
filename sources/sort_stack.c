@@ -12,28 +12,29 @@
 
 #include "../includes/push_swap.h"
 
-static bool	stack_is_sorted(t_stack *stack);
-
-void	sort_stack(t_stack *a, t_stack *b)
+void	sort_stack(size_t stack_size, t_stack *a, t_stack *b, size_t iterations)
 {
-	if (stack_is_sorted(a))
-		ft_handle_error(ERROR_MESSAGE);
-	if (a->size <= 5)
-		small_stack_sort(a, b);
+	size_t			push_rotate_count;
+	t_sort_values	values;
+
+	if (stack_size <= 3)
+		three_or_less_sort();
+	else if (stack_size == 5)
+		five_sort();
 	else
-		big_stack_sort(a, b);
-}
-
-static bool	stack_is_sorted(t_stack *stack)
-{
-	t_node	*temp_node;
-
-	temp_node = stack->bottom;
-	while (temp_node->next)
 	{
-		if (temp_node->value > temp_node->next->value)
-			return (false);
-		temp_node = temp_node->next;
+		values = (t_sort_values){0, 0, 0, 0};
+		select_pivots(stack_size, a, &values);
+		push_rotate_count = stack_size;
+		while (push_rotate_count++ < stack_size)
+			push_rotate(a, b, &values);
+		if (values.rotate_a > values.rotate_b)
+			back_to_orig_ra(a, b, &values);
+		else
+			back_to_orig_rb(a, b, &values);
+		sort_stack(values.rotate_a, a, b, iterations);
+		push_back_to_stack(values.rotate_b, a, b, iterations);
+		push_back_to_stack(values.push_b - values.rotate_b, a, b, iterations);
 	}
-	return (true);
+
 }

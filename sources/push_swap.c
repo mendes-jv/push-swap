@@ -12,7 +12,8 @@
 
 #include "../includes/push_swap.h"
 
-void	init_stacks(t_stack *a, t_stack *b, char **args_list);
+static void	init_stacks(t_stack *a, t_stack *b, char **args_list);
+static bool	stack_is_sorted(t_stack *stack);
 
 int	main(int argc, char **argv)
 {
@@ -29,12 +30,13 @@ int	main(int argc, char **argv)
 		args_list = argv + 1;
 	check_args_list(args_list);
 	init_stacks(&a, &b, args_list);
-	sort_stack(&a, &b);
+	if (!stack_is_sorted(&a))
+		sort_stack(&a, &b, 0);
 	//free stacks nodes
 	return (EXIT_SUCCESS);
 }
 
-void	init_stacks(t_stack *a, t_stack *b, char **args_list)
+static void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 {
 	t_node	*bottom_node;
 	t_node	*top_node;
@@ -57,4 +59,18 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 	}
 	*a = (t_stack) {a->size, top_node, bottom_node};
 	*b = ((t_stack) {0, NULL, NULL});
+}
+
+static bool	stack_is_sorted(t_stack *stack)
+{
+	t_node	*temp_node;
+
+	temp_node = stack->bottom;
+	while (temp_node->next)
+	{
+		if (temp_node->value > temp_node->next->value)
+			return (false);
+		temp_node = temp_node->next;
+	}
+	return (true);
 }
