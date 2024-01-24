@@ -33,25 +33,7 @@ void	swap(t_stack *a)
 	a->top->prev->value = temp_value;
 }
 
-void	rotate(t_stack *a)
-{
-	int		temp_value;
-	t_node	*temp_node;
-
-	if (a->size < 2)
-		return ;
-	temp_node = a->bottom;
-	while (temp_node->next)
-	{
-		temp_value = temp_node->next->value;
-		temp_node->next->value = temp_node->value;
-		temp_node = temp_node->next;
-		temp_node->value = temp_value;
-	}
-	a->bottom->value = temp_value;
-}
-
-void reverse_rotate(t_stack *a)
+void rotate(t_stack *a)
 {
 	int		temp_value;
 	t_node	*temp_node;
@@ -59,6 +41,7 @@ void reverse_rotate(t_stack *a)
 	if (a->size < 2)
 		return ;
 	temp_node = a->top;
+	temp_value = temp_node->prev->value;
 	while (temp_node->prev)
 	{
 		temp_value = temp_node->prev->value;
@@ -67,4 +50,23 @@ void reverse_rotate(t_stack *a)
 		temp_node->value = temp_value;
 	}
 	a->top->value = temp_value;
+}
+
+void	reverse_rotate(t_stack *a)
+{
+	int		temp_value;
+	t_node	*temp_node;
+
+	if (a->size < 2)
+		return ;
+	temp_node = a->bottom;
+	temp_value = temp_node->next->value;
+	while (temp_node->next)
+	{
+		temp_value = temp_node->next->value;
+		temp_node->next->value = temp_node->value;
+		temp_node = temp_node->next;
+		temp_node->value = temp_value;
+	}
+	a->bottom->value = temp_value;
 }

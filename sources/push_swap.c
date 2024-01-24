@@ -12,7 +12,8 @@
 
 #include "../includes/push_swap.h"
 
-void	init_stacks(t_stack *a, t_stack *b, char **args_list);
+static void	init_stacks(t_stack *a, t_stack *b, char **args_list);
+static bool	stack_is_sorted(t_stack *stack);
 
 int	main(int argc, char **argv)
 {
@@ -29,32 +30,49 @@ int	main(int argc, char **argv)
 		args_list = argv + 1;
 	check_args_list(args_list);
 	init_stacks(&a, &b, args_list);
-	sort_stack(&a, &b);
+	if (!stack_is_sorted(&a))
+		sort_stack(a.size ,&a, &b, 0);
 	//free stacks nodes
 	return (EXIT_SUCCESS);
 }
 
 void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 {
-	t_node	*bottom_node;
+	t_node	*new_node;
 	t_node	*top_node;
-	t_node	*temp_node;
+	t_node	*prev_node;
 
-	bottom_node = malloc(sizeof(t_node));
-	if (!bottom_node)
+	top_node = malloc(sizeof(t_node));
+	if (!top_node)
 		return ; //TODO: Change to handle error
-	*bottom_node = (t_node) {ft_atoi((*args_list)++), NULL, NULL};
-	temp_node = bottom_node;
+	*top_node = (t_node) {ft_atoi(*args_list++), NULL, NULL};
+	prev_node = top_node;
+	a->size = 1;
 	while (*args_list)
 	{
-		top_node = malloc(sizeof(t_node));
-		if (!top_node)
+		new_node = malloc(sizeof(t_node));
+		if (!new_node)
 			return ; //TODO: Change to handle error
-		*top_node = (t_node) {ft_atoi(*args_list), temp_node, NULL};
-		temp_node->next = top_node;
+		*new_node = (t_node) {ft_atoi(*args_list), NULL, prev_node};
+		prev_node->prev = new_node;
+		prev_node = new_node;
 		a->size++;
 		args_list++;
 	}
-	*a = (t_stack) {a->size, top_node, bottom_node};
+	*a = (t_stack) {a->size, top_node, prev_node};
 	*b = ((t_stack) {0, NULL, NULL});
+}
+
+static bool	stack_is_sorted(t_stack *stack)
+{
+	t_node	*temp_node;
+
+	temp_node = stack->bottom;
+	while (temp_node->next)
+	{
+		if (temp_node->value > temp_node->next->value)
+			return (false);
+		temp_node = temp_node->next;
+	}
+	return (true);
 }

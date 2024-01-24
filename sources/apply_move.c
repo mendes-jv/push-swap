@@ -2,9 +2,9 @@
 
 static void	print_moves(void *move, t_byte stacks);
 
-void	apply_move(t_stack *a, t_stack *b, t_move_stack move, t_byte stacks)
+void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stacks)
 {
-	if ((t_push_stack)move == push)
+	if (move == push)
 	{
 		if (stacks == A)
 			push(a, b);
@@ -14,9 +14,9 @@ void	apply_move(t_stack *a, t_stack *b, t_move_stack move, t_byte stacks)
 	else
 	{
 		if (stacks & A)
-			move(a);
+			((t_move_stack)move)(a);
 		if (stacks & B)
-			move(b);
+			((t_move_stack)move)(b);
 	}
 	print_moves(move, stacks);
 }
@@ -39,6 +39,6 @@ static void	print_moves(void *move, t_byte stacks)
 	else if (stacks == B)
 		ft_putstr_fd("b", STDOUT_FILENO);
 	else
-		write(STDOUT_FILENO, move_abbreviation, sizeof(char));
-	write(STDOUT_FILENO,"\n", sizeof(char));
+		ft_putchar_fd(*move_abbreviation, STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
 }

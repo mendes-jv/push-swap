@@ -28,7 +28,7 @@ MKDIR				:= mkdir -p
 RM					:= rm -rf
 
 # Sources
-FILES				:= push_swap check_args
+FILES				:= apply_move check_args_list push_swap small_stack_sort sort_stack stack_movements
 SOURCES				:= $(addprefix $(SOURCES_DIR), $(addsuffix .c, $(FILES)))
 OBJECTS				:= $(addprefix $(OBJECTS_DIR), $(addsuffix .o, $(FILES)))
 LIBFT				:= $(addprefix $(LIBFT_DIR), $(LIBFT_FILE))
@@ -47,7 +47,11 @@ all:
 	@$(MAKE) -s libraries
 	@if [ ! -f $(NAME) ]; then \
 		$(MAKE) -s programs; \
-    	printf "$(GREEN)Compiled $(NAME) successfully!$(RESET)\n"; \
+		if [ -f $(NAME) ]; then \
+    		printf "$(GREEN)Compiled $(NAME) successfully!$(RESET)\n"; \
+    	else \
+    		printf "$(RED)$(NAME) is not compiled yet!$(RESET)\n"; \
+		fi \
     else \
     	printf "$(RED)$(NAME) is already compiled!$(RESET)\n"; \
     fi
