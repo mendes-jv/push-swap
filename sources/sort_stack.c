@@ -156,17 +156,17 @@ static void	push_rotate(t_stack *a, t_stack *b, t_sort_values *values)
 
 static void	three_or_less_sort(t_stack *a, t_stack *b, t_byte priority_stack)
 {
-	if (a->size == 1 && priority_stack == B)
-		apply_move(a, b, push, B);
-	else if (a->size == 2)
-		two_sort(a, b, priority_stack);
-	else if (a->size == 3)
+	if (a->size == 3)
 		three_sort(a, b, priority_stack);
+	if (a->size >= 2)
+		two_sort(a, b, priority_stack);
+	if (a->size >= 1 && priority_stack == B)
+		apply_move(a, b, push, B);
 }
 
 static void	two_sort(t_stack *a, t_stack *b, t_byte priority_stack)
 {
-	if (priority_stack == A && a->top->value > a->top->next->value)
+	if (priority_stack == A && a->top->value > a->top->prev->value)
 		apply_move(a, b, swap, A);
 	else if (priority_stack == B) {
 		if (b->top->value < b->top->next->value)
@@ -180,20 +180,11 @@ static void	three_sort(t_stack *a, t_stack *b, t_byte priority_stack)
 {
 	if (priority_stack == A)
 	{
-		if (a->top->value > a->top->next->value
-			&& a->top->value > a->top->next->next->value)
+		if (a->top->value > a->top->prev->value
+			&& a->top->value > a->top->prev->prev->value)
 			apply_move(a, b, rotate, A);
-		else if (a->top->next->value > a->top->value
-			&& a->top->next->value > a->top->next->next->value)
-			apply_move(a, b, reverse_rotate, A);
-	}
-	else
-	{
-		if (a->top->value < a->top->next->value
-			&& a->top->value < a->top->next->next->value)
-			apply_move(a, b, rotate, A);
-		else if (a->top->next->value < a->top->value
-			&& a->top->next->value < a->top->next->next->value)
+		else if (a->top->prev->value > a->top->value
+			&& a->top->prev->value > a->top->prev->prev->value)
 			apply_move(a, b, reverse_rotate, A);
 	}
 	if (priority_stack == B)

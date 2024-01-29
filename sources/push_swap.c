@@ -67,12 +67,12 @@ static bool	stack_is_sorted(t_stack *stack)
 {
 	t_node	*temp_node;
 
-	temp_node = stack->bottom;
-	while (temp_node->next)
+	temp_node = stack->top;
+	while (temp_node->prev)
 	{
-		if (temp_node->value > temp_node->next->value)
+		if (temp_node->value > temp_node->prev->value)
 			return (false);
-		temp_node = temp_node->next;
+		temp_node = temp_node->prev;
 	}
 	return (true);
 }
