@@ -12,9 +12,11 @@
 
 # Variables
 NAME				:= push_swap
+CHECKER				:= checker
 
 SOURCES_DIR			:= sources/
-OBJECTS_DIR			:= objects/
+OBJECTS_DIR			:= objects/push_swap/
+CHECKER_OBJECTS_DIR	:= objects/checker/
 HEADERS_DIR			:= includes/
 LIBRARIES_DIR		:= libraries/
 LIBFT_DIR			:= $(addprefix $(LIBRARIES_DIR), libft/)
@@ -29,8 +31,11 @@ RM					:= rm -rf
 
 # Sources
 FILES				:= apply_move check_args_list push_swap small_stack_sort sort_stack stack_movements
+CHECKER_FILES		:= apply_move check_args_list checker small_stack_sort sort_stack stack_movements
 SOURCES				:= $(addprefix $(SOURCES_DIR), $(addsuffix .c, $(FILES)))
 OBJECTS				:= $(addprefix $(OBJECTS_DIR), $(addsuffix .o, $(FILES)))
+CHECKER_SOURCES		:= $(addprefix $(SOURCES_DIR), $(addsuffix .c, $(CHECKER_FILES)))
+CHECKER_OBJECTS		:= $(addprefix $(OBJECTS_DIR), $(addsuffix .o, $(CHECKER_FILES)))
 LIBFT				:= $(addprefix $(LIBFT_DIR), $(LIBFT_FILE))
 LIBFT_HEADER		:= $(addprefix $(LIBFT_DIR), includes/libft.h)
 HEADERS				:= -I $(HEADERS_DIR)
@@ -46,7 +51,7 @@ RESET  		 		:= \033[0m
 all:
 	@$(MAKE) -s libraries
 	@if [ ! -f $(NAME) ]; then \
-		$(MAKE) -s programs; \
+		$(MAKE) -s $(NAME); \
 		if [ -f $(NAME) ]; then \
     		printf "$(GREEN)Compiled $(NAME) successfully!$(RESET)\n"; \
     	else \
@@ -56,15 +61,8 @@ all:
     	printf "$(RED)$(NAME) is already compiled!$(RESET)\n"; \
     fi
 
-libraries: $(LIBFT)
-
-programs: $(NAME)
-
 $(NAME): $(OBJECTS)
 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) $(INCLUDES);
-
-$(LIBFT):
-	@$(MAKE_LIBS) $(LIBFT_DIR)
 
 $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@$(MKDIR) $(OBJECTS_DIR)
@@ -99,3 +97,30 @@ fclean: clean fcleanlibft
 
 re: fclean
 	@$(MAKE) -s
+
+bonus:
+	@$(MAKE) -s libraries
+	@if [ ! -f $(CHECKER) ]; then \
+		$(MAKE) -s $(CHECKER); \
+		if [ -f $(CHECKER) ]; then \
+    		printf "$(GREEN)Compiled $(CHECKER) successfully!$(RESET)\n"; \
+    	else \
+    		printf "$(RED)$(CHECKER) is not compiled yet!$(RESET)\n"; \
+		fi \
+    else \
+    	printf "$(RED)$(CHECKER) is already compiled!$(RESET)\n"; \
+    fi
+
+$(CHECKER): $(CHECKER_OBJECTS)
+	@$(CC) $(CFLAGS) $(CHECKER_OBJECTS) $(LIBFT) -o $(CHECKER) $(INCLUDES);
+
+$(CHECKER_OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
+	@$(MKDIR) $(CHECKER_OBJECTS_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+programs: all bonus
+
+libraries: $(LIBFT)
+
+$(LIBFT):
+	@$(MAKE_LIBS) $(LIBFT_DIR)

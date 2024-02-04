@@ -12,19 +12,15 @@
 
 #include "../includes/push_swap.h"
 
-static void	init_stacks(t_stack *a, t_stack *b, char **args_list);
-static bool	stack_is_sorted(t_stack *stack);
-static void	free_nodes(t_node *top_node);
-
 int	main(int argc, char **argv)
 {
-	char	**args_list;
 	t_stack	a;
 	t_stack	b;
 	bool	isSplit;
+	char	**args_list;
 
-	args_list = NULL;
 	isSplit = false;
+	args_list = NULL;
 	if (!argv || argc < 2)
 		ft_handle_error(ERROR_MESSAGE);
 	else if (argc == 2) {
@@ -69,7 +65,7 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 	*b = ((t_stack) {0, NULL, NULL});
 }
 
-static bool	stack_is_sorted(t_stack *stack)
+bool	stack_is_sorted(t_stack *stack)
 {
 	t_node	temp_node;
 

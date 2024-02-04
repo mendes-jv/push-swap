@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//TODO: Separate .h files for each purpose
+//TODO: Change projects structure to a better one
+//TODO: Change bool and limits.h
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -63,6 +67,8 @@ void	rotate(t_stack *a);
 void	reverse_rotate(t_stack *a);
 void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stack);
 void 	free_args_list(char **args_list, bool isSplit);
-
+void	init_stacks(t_stack *a, t_stack *b, char **args_list);
+void	free_nodes(t_node *top_node);
+bool	stack_is_sorted(t_stack *stack);
 
 #endif //PUSH_SWAP_H
