@@ -4,20 +4,23 @@ void	push(t_stack *a, t_stack *b)
 {
 	t_node	*temp_node;
 
-	if (!a->size)
-		return ;
 	temp_node = a->top;
 	a->top = a->top->prev;
+	if (!a->top)
+		a->bottom = NULL;
+	else
+		a->top->next = NULL;
 	a->size--;
 	if (!b->size)
 	{
+		temp_node->prev = NULL;
 		b->top = temp_node;
 		b->bottom = temp_node;
 		b->size++;
 		return ;
 	}
-	b->top->next = temp_node;
 	temp_node->prev = b->top;
+	b->top->next = temp_node;
 	b->top = temp_node;
 	b->size++;
 }

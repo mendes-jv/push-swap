@@ -6,7 +6,7 @@ void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stacks)
 {
 	if (move == push)
 	{
-		if (stacks == A)
+		if (stacks == B)
 			push(a, b);
 		else
 			push(b, a);

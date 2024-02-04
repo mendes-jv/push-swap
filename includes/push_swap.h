@@ -48,15 +48,21 @@ typedef struct s_sort_values
 typedef void	(*t_move_stack)(t_stack *a);
 typedef void	(*t_push_stack)(t_stack *a, t_stack *b);
 typedef char	t_byte;
+typedef struct	s_reorder
+{
+	t_byte	priority_stack;
+	size_t	iterations;
+}	t_reorder;
 
 //Prototypes
-void	check_args_list(char **args_list);
+void	check_args_list(char **args_list, bool isSplit);
 void	sort_stack(size_t stack_size, t_stack *a, t_stack *b, size_t iterations);
 void	push(t_stack *a, t_stack *b);
 void	swap(t_stack *a);
 void	rotate(t_stack *a);
 void	reverse_rotate(t_stack *a);
 void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stack);
+void 	free_args_list(char **args_list, bool isSplit);
 
 
 #endif //PUSH_SWAP_H

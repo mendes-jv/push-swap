@@ -14,25 +14,31 @@
 
 static void	init_stacks(t_stack *a, t_stack *b, char **args_list);
 static bool	stack_is_sorted(t_stack *stack);
+static void	free_nodes(t_node *top_node);
 
 int	main(int argc, char **argv)
 {
 	char	**args_list;
 	t_stack	a;
 	t_stack	b;
+	bool	isSplit;
 
 	args_list = NULL;
+	isSplit = false;
 	if (!argv || argc < 2)
 		ft_handle_error(ERROR_MESSAGE);
-	else if (argc == 2)
+	else if (argc == 2) {
 		args_list = ft_split(argv[1], ' ');
+		isSplit = true;
+	}
 	else
 		args_list = argv + 1;
-	check_args_list(args_list);
+	check_args_list(args_list, isSplit);
 	init_stacks(&a, &b, args_list);
 	if (!stack_is_sorted(&a))
 		sort_stack(a.size ,&a, &b, 0);
-	//free stacks nodes
+	free_args_list(args_list, isSplit);
+	free_nodes(a.top);
 	return (EXIT_SUCCESS);
 }
 
@@ -44,7 +50,7 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 
 	top_node = malloc(sizeof(t_node));
 	if (!top_node)
-		return ; //TODO: Change to handle error
+		return ;
 	*top_node = (t_node) {ft_atoi(*args_list++), NULL, NULL};
 	prev_node = top_node;
 	a->size = 1;
@@ -52,7 +58,7 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 	{
 		new_node = malloc(sizeof(t_node));
 		if (!new_node)
-			return ; //TODO: Change to handle error
+			return ;
 		*new_node = (t_node) {ft_atoi(*args_list), NULL, prev_node};
 		prev_node->prev = new_node;
 		prev_node = new_node;
@@ -65,14 +71,35 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 
 static bool	stack_is_sorted(t_stack *stack)
 {
-	t_node	*temp_node;
+	t_node	temp_node;
 
-	temp_node = stack->top;
-	while (temp_node->prev)
+	temp_node = *stack->top;
+	while (temp_node.prev)
 	{
-		if (temp_node->value > temp_node->prev->value)
+		if (temp_node.value > temp_node.prev->value)
 			return (false);
-		temp_node = temp_node->prev;
+		temp_node = *temp_node.prev;
 	}
 	return (true);
+}
+
+void	free_nodes(t_node *top_node)
+{
+	t_node	*temp_node;
+
+	while (top_node)
+	{
+		temp_node = top_node;
+		top_node = top_node->prev;
+		free(temp_node);
+	}
+}
+
+void	free_args_list(char **args_list, bool isSplit)
+{
+	if (isSplit)
+	{
+		ft_for_each((void **) args_list, free);
+		free(args_list);
+	}
 }
