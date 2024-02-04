@@ -23,7 +23,7 @@ LIBFT_FILE 			:= libft.a
 MAKE				:= make
 MAKE_LIBS			:= $(MAKE) -sC
 CC					:= cc
-CFLAGS				:= -Wall -Wextra -Werror -Wunreachable-code -g3
+CFLAGS				:= -Wall -Wextra -Werror -Wunreachable-code -Ofast -g3 -O3
 MKDIR				:= mkdir -p
 RM					:= rm -rf
 
