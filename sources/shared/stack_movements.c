@@ -1,9 +1,11 @@
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 
 void	push(t_stack *a, t_stack *b)
 {
 	t_node	*temp_node;
 
+	if (a->size < 2)
+		return ;
 	temp_node = a->top;
 	a->top = a->top->prev;
 	if (!a->top)

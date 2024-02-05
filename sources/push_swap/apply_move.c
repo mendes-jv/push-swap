@@ -1,4 +1,4 @@
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 
 static void	print_moves(void *move, t_byte stacks);
 

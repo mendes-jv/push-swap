@@ -58,6 +58,18 @@ typedef struct	s_reorder
 	size_t	iterations;
 }	t_reorder;
 
+# ifndef SWAPS
+#  define SWAPS "sa sb ss"
+# endif
+
+# ifndef PUSHES
+#  define PUSHES "pa pb"
+# endif
+
+# ifndef ROTATIONS
+#  define ROTATIONS "ra rb rr rra rrb rrr"
+# endif
+
 //Prototypes
 void	check_args_list(char **args_list, bool isSplit);
 void	sort_stack(size_t stack_size, t_stack *a, t_stack *b, size_t iterations);
@@ -69,6 +81,7 @@ void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stack);
 void 	free_args_list(char **args_list, bool isSplit);
 void	init_stacks(t_stack *a, t_stack *b, char **args_list);
 void	free_nodes(t_node *top_node);
+void	read_moves(t_stack *a, t_stack *b);
 bool	stack_is_sorted(t_stack *stack);
 
 #endif //PUSH_SWAP_H

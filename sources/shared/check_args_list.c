@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 
 static bool args_are_numbers(char **temp_args_list);
 static bool	args_are_duplicates(char **args_list);
@@ -75,4 +75,13 @@ static bool	args_are_integers(char **args_list)
 		args_list++;
 	}
 	return (true);
+}
+
+void	free_args_list(char **args_list, bool isSplit)
+{
+	if (isSplit)
+	{
+		ft_for_each((void **) args_list, free);
+		free(args_list);
+	}
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
 static void	select_pivots(size_t stack_size, t_stack *a, t_sort_values *values);
 static int	get_min_value(t_stack *a, size_t stack_size);
 static int	get_max_value(t_stack *a, size_t stack_size);
