@@ -70,7 +70,7 @@ typedef struct	s_rr
 # endif
 
 //Prototypes
-void	check_args_list(char **args_list, bool isSplit);
+void	check_args_list(char **args_list, bool is_split);
 void	push(t_stack *a, t_stack *b);
 void	swap(t_stack *a);
 void	rotate(t_stack *a);
@@ -87,7 +87,7 @@ void	two_sort(t_stack *a, t_stack *b, t_byte priority_stack);
 void	push_rotate_a(t_stack *a, t_stack *b, t_values *values);
 void	push_rotate_b(t_stack *a, t_stack *b, t_values *values);
 void	reorder_rr(t_stack *a, t_stack *b, t_rr params, t_values *values);
-void 	free_args_list(char **args_list, bool isSplit);
+void 	free_args_list(char **args_list, bool is_split);
 void	init_stacks(t_stack *a, t_stack *b, char **args_list);
 void	free_nodes(t_node *top_node);
 void	read_moves(t_stack *a, t_stack *b);

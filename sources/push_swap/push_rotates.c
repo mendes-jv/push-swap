@@ -12,7 +12,7 @@
 
 #include "../../includes/push_swap.h"
 
-void	push_rotate_a(t_stack *a, t_stack *b, t_sort_values *values)
+void	push_rotate_a(t_stack *a, t_stack *b, t_values *values)
 {
 	if (a->top->value > values->big_pivot)
 	{
@@ -31,7 +31,7 @@ void	push_rotate_a(t_stack *a, t_stack *b, t_sort_values *values)
 	}
 }
 
-void	push_rotate_b(t_stack *a, t_stack *b, t_sort_values *values)
+void	push_rotate_b(t_stack *a, t_stack *b, t_values *values)
 {
 	if (b->top->value <= values->small_pivot)
 	{

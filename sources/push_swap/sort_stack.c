@@ -21,7 +21,7 @@ void	sort_stack(size_t stack_size, t_stack *a, t_stack *b, size_t iterations)
 	t_values	values;
 
 	if (stack_size <= 3)
-		three_or_less_sort(stack_size, a, b, A);
+		small_sort(stack_size, a, b, A);
 	else if (stack_size == 5)
 		five_sort(a, b, A);
 	else

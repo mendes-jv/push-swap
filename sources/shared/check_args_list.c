@@ -16,12 +16,12 @@ static bool	args_are_numbers(char **temp_args_list);
 static bool	args_are_duplicates(char **args_list);
 static bool	args_are_integers(char **args_list);
 
-void	check_args_list(char **args_list, bool isSplit)
+void	check_args_list(char **args_list, bool is_split)
 {
 	if (!args_are_numbers(args_list) || args_are_duplicates(args_list)
 		|| !args_are_integers(args_list))
 	{
-		free_args_list(args_list, isSplit);
+		free_args_list(args_list, is_split);
 		ft_handle_error(ERROR_MESSAGE);
 	}
 }
@@ -78,9 +78,9 @@ static bool	args_are_integers(char **args_list)
 	return (true);
 }
 
-void	free_args_list(char **args_list, bool isSplit)
+void	free_args_list(char **args_list, bool is_split)
 {
-	if (isSplit)
+	if (is_split)
 	{
 		ft_for_each((void **) args_list, free);
 		free(args_list);
