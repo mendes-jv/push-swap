@@ -12,7 +12,7 @@
 
 #include "../../includes/push_swap.h"
 
-static bool args_are_numbers(char **temp_args_list);
+static bool	args_are_numbers(char **temp_args_list);
 static bool	args_are_duplicates(char **args_list);
 static bool	args_are_integers(char **args_list);
 
@@ -28,7 +28,7 @@ void	check_args_list(char **args_list, bool isSplit)
 
 static bool	args_are_numbers(char **args_list)
 {
-	char *temp_arg;
+	char	*temp_arg;
 
 	while (*args_list)
 	{
@@ -50,13 +50,14 @@ static bool	args_are_duplicates(char **args_list)
 {
 	size_t	index;
 	size_t	comp_len;
+
 	while (*args_list)
 	{
 		index = 1;
 		while (args_list[index])
 		{
 			comp_len = ft_operate((int) ft_strlen(*args_list),
-								  (int) ft_strlen(args_list[index]), MAX);
+					(int) ft_strlen(args_list[index]), MAX);
 			if (!ft_strncmp(*args_list, args_list[index], comp_len))
 				return (true);
 			index++;

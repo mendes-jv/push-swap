@@ -39,7 +39,7 @@ void	read_moves(t_stack *a, t_stack *b)
 
 static void	handle_move(t_stack *a, t_stack *b, char *line)
 {
-	char *move;
+	char	*move;
 
 	move = ft_strtrim(line, "\n");
 	if (ft_strnstr(SWAPS, move, ft_strlen(SWAPS)))

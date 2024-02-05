@@ -16,24 +16,25 @@ int	main(int argc, char **argv)
 {
 	t_stack	a;
 	t_stack	b;
-	bool	isSplit;
+	bool	is_split;
 	char	**args_list;
 
-	isSplit = false;
+	is_split = false;
 	args_list = NULL;
 	if (!argv || argc < 2)
 		ft_handle_error(ERROR_MESSAGE);
-	else if (argc == 2) {
+	else if (argc == 2)
+	{
 		args_list = ft_split(argv[1], ' ');
-		isSplit = true;
+		is_split = true;
 	}
 	else
 		args_list = argv + 1;
-	check_args_list(args_list, isSplit);
+	check_args_list(args_list, is_split);
 	init_stacks(&a, &b, args_list);
 	if (!stack_is_sorted(&a))
-		sort_stack(a.size ,&a, &b, 0);
-	free_args_list(args_list, isSplit);
+		sort_stack(a.size, &a, &b, 0);
+	free_args_list(args_list, is_split);
 	free_nodes(a.top);
 	return (EXIT_SUCCESS);
 }

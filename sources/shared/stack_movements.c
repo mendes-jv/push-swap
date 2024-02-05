@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_movements.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jovicto2 <jovicto2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/05 18:53:10 by jovicto2          #+#    #+#             */
+/*   Updated: 2024/02/05 18:53:13 by jovicto2         ###   ########.org.br   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/push_swap.h"
 
 void	push(t_stack *a, t_stack *b)
@@ -38,9 +50,9 @@ void	swap(t_stack *a)
 	a->top->prev->value = temp_value;
 }
 
-void reverse_rotate(t_stack *a)
+void	reverse_rotate(t_stack *a)
 {
-	int	bottom_value;
+	int		bottom_value;
 	t_node	*temp_node;
 
 	if (a->size < 2)

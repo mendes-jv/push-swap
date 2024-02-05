@@ -21,7 +21,7 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 	top_node = malloc(sizeof(t_node));
 	if (!top_node)
 		return ;
-	*top_node = (t_node) {ft_atoi(*args_list++), NULL, NULL};
+	*top_node = (t_node){ft_atoi(*args_list++), NULL, NULL};
 	prev_node = top_node;
 	a->size = 1;
 	while (*args_list)
@@ -29,14 +29,14 @@ void	init_stacks(t_stack *a, t_stack *b, char **args_list)
 		new_node = malloc(sizeof(t_node));
 		if (!new_node)
 			return ;
-		*new_node = (t_node) {ft_atoi(*args_list), NULL, prev_node};
+		*new_node = (t_node){ft_atoi(*args_list), NULL, prev_node};
 		prev_node->prev = new_node;
 		prev_node = new_node;
 		a->size++;
 		args_list++;
 	}
-	*a = (t_stack) {a->size, top_node, prev_node};
-	*b = ((t_stack) {0, NULL, NULL});
+	*a = (t_stack){a->size, top_node, prev_node};
+	*b = (t_stack){0, NULL, NULL};
 }
 
 bool	stack_is_sorted(t_stack *stack)

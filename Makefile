@@ -36,7 +36,7 @@ RM						:= rm -rf
 
 # Sources
 SHARED_FILES			:= check_args_list handle_stacks stack_movements
-PUSH_SWAP_FILES			:= apply_move push_swap sort_stack
+PUSH_SWAP_FILES			:= apply_move five_sort get_values push_rotates push_swap reorder_rr sort_stack small_sort three_sort
 CHECKER_FILES			:= checker read_moves
 SHARED_SOURCES			:= $(addprefix $(SHARED_DIR), $(addsuffix .c, $(SHARED_FILES)))
 PUSH_SWAP_SOURCES		:= $(addprefix $(PUSH_SWAP_DIR), $(addsuffix .c, $(PUSH_SWAP_FILES)))
