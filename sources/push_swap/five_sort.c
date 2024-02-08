@@ -37,7 +37,7 @@ static void	five_sort_a(t_stack *a, t_stack *b)
 	rotate_count = 0;
 	size = 5;
 	mid = get_median_value(a);
-	while (size-- && push_count <= 2)
+	while (size-- && push_count < 2)
 	{
 		if (a->top->value < mid)
 		{

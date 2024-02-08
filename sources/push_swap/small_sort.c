@@ -12,22 +12,22 @@
 
 #include "../../includes/push_swap.h"
 
-void	small_sort(size_t size, t_stack *a, t_stack *b, t_byte priority_stack)
+void	small_sort(size_t size, t_stack *a, t_stack *b, t_byte stack)
 {
 	if (size == 3)
-		three_sort(a, b, priority_stack);
+		three_sort(a, b, stack);
 	else if (size == 2)
-		two_sort(a, b, priority_stack);
-	else if (size == 1 && priority_stack == B)
+		two_sort(a, b, stack);
+	else if (size == 1 && stack == B)
 		apply_move(a, b, push, A);
 }
 
-void	three_sort(t_stack *a, t_stack *b, t_byte priority_stack)
+void	three_sort(t_stack *a, t_stack *b, t_byte s)
 {
 	int	min;
 	int	max;
 
-	if (priority_stack == A)
+	if (s == A)
 	{
 		min = get_min_value(a, 3);
 		max = get_max_value(a, 3);
@@ -37,13 +37,14 @@ void	three_sort(t_stack *a, t_stack *b, t_byte priority_stack)
 		min = get_min_value(b, 3);
 		max = get_max_value(b, 3);
 	}
-	if (a->top->value == min)
-		top_min_sort(a, b, priority_stack, max);
-	else if (a->top->prev->value == min)
-		mid_min_sort(a, b, priority_stack, max);
+	if ((s == A && a->top->value == min) || (s == B && b->top->value == min))
+		top_min_sort(a, b, s, max);
+	else if ((s == A && a->top->prev->value == min)
+		|| (s == B && b->top->prev->value == min))
+		mid_min_sort(a, b, s, max);
 	else
-		bot_min_sort(a, b, priority_stack, max);
-	if (priority_stack == B)
+		bot_min_sort(a, b, s, max);
+	if (s == B)
 	{
 		apply_move(a, b, push, A);
 		apply_move(a, b, push, A);
@@ -51,11 +52,11 @@ void	three_sort(t_stack *a, t_stack *b, t_byte priority_stack)
 	}
 }
 
-void	two_sort(t_stack *a, t_stack *b, t_byte priority_stack)
+void	two_sort(t_stack *a, t_stack *b, t_byte stack)
 {
-	if (priority_stack == A && a->top->value > a->top->prev->value)
+	if (stack == A && a->top->value > a->top->prev->value)
 		apply_move(a, b, swap, A);
-	else if (priority_stack == B)
+	else if (stack == B)
 	{
 		if (b->top->value < b->top->prev->value)
 			apply_move(a, b, swap, B);

@@ -16,7 +16,7 @@ void	push(t_stack *a, t_stack *b)
 {
 	t_node	*temp_node;
 
-	if (a->size < 2)
+	if (!a->size)
 		return ;
 	temp_node = a->top;
 	a->top = a->top->prev;

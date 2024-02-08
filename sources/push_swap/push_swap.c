@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	is_split = false;
 	args_list = NULL;
 	if (!argv || argc < 2)
-		ft_handle_error(ERROR_MESSAGE);
+		return (EXIT_FAILURE);
 	else if (argc == 2)
 	{
 		args_list = ft_split(argv[1], ' ');

@@ -12,10 +12,13 @@
 
 #include "../../includes/push_swap.h"
 
+static bool	check_stacks(t_stack *a, t_stack *b, void *move, t_byte stacks);
 static void	print_moves(void *move, t_byte stacks);
 
 void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stacks)
 {
+	if (check_stacks(a, b, move, stacks))
+		return ;
 	if (move == push)
 	{
 		if (stacks == B)
@@ -31,6 +34,14 @@ void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stacks)
 			((t_move_stack)move)(b);
 	}
 	print_moves(move, stacks);
+}
+
+static bool	check_stacks(t_stack *a, t_stack *b, void *move, t_byte stacks)
+{
+	return (((move == push) && ((stacks == A && b->size < 1)
+		|| (stacks == B && a->size < 1)))
+		|| ((move != push) && ((stacks == A && a->size <= 1)
+		|| (stacks == B && b->size <= 1))));
 }
 
 static void	print_moves(void *move, t_byte stacks)
