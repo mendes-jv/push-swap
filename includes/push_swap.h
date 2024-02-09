@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//TODO: Separate .h files for each purpose
-//TODO: Change projects structure to a better one
-//TODO: Change bool and limits.h
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
