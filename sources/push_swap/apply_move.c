@@ -39,9 +39,9 @@ void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stacks)
 static bool	check_stacks(t_stack *a, t_stack *b, void *move, t_byte stacks)
 {
 	return (((move == push) && ((stacks == A && b->size < 1)
-		|| (stacks == B && a->size < 1)))
+				|| (stacks == B && a->size < 1)))
 		|| ((move != push) && ((stacks == A && a->size <= 1)
-		|| (stacks == B && b->size <= 1))));
+				|| (stacks == B && b->size <= 1))));
 }
 
 static void	print_moves(void *move, t_byte stacks)

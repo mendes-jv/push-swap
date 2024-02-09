@@ -24,19 +24,16 @@ void	small_sort(size_t size, t_stack *a, t_stack *b, t_byte stack)
 
 void	three_sort(t_stack *a, t_stack *b, t_byte s)
 {
-	int	min;
-	int	max;
+	int		min;
+	int		max;
+	t_stack	*stack;
 
 	if (s == A)
-	{
-		min = get_min_value(a, 3);
-		max = get_max_value(a, 3);
-	}
+		stack = a;
 	else
-	{
-		min = get_min_value(b, 3);
-		max = get_max_value(b, 3);
-	}
+		stack = b;
+	min = get_min_value(stack, 3);
+	max = get_max_value(stack, 3);
 	if ((s == A && a->top->value == min) || (s == B && b->top->value == min))
 		top_min_sort(a, b, s, max);
 	else if ((s == A && a->top->prev->value == min)

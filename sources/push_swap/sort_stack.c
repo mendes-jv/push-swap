@@ -15,20 +15,20 @@
 static void	push_back(size_t size, t_stack *a, t_stack *b, size_t iterations);
 static void	select_pivots(size_t stack_size, t_stack *a, t_values *values);
 
-void	sort_stack(size_t stack_size, t_stack *a, t_stack *b, size_t iterations)
+void	sort_stack(size_t size, t_stack *a, t_stack *b, size_t iterations)
 {
 	size_t		push_rotate_count;
 	t_values	values;
 
-	if (stack_size <= 3)
-		small_sort(stack_size, a, b, A);
-	else if (stack_size == 5)
+	if (size <= 3)
+		small_sort(size, a, b, A);
+	else if (size == 5)
 		five_sort(a, b, A);
 	else
 	{
 		values = (t_values){0, 0, 0, 0, 0, 0};
-		select_pivots(stack_size, a, &values);
-		push_rotate_count = stack_size;
+		select_pivots(size, a, &values);
+		push_rotate_count = size;
 		while (push_rotate_count--)
 			push_rotate_a(a, b, &values);
 		reorder_rr(a, b, (t_rr){A, iterations}, &values);

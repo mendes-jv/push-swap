@@ -43,15 +43,15 @@ typedef struct s_stack
 typedef struct s_values
 {
 	size_t	rotate_a;
-	size_t 	rotate_b;
+	size_t	rotate_b;
 	size_t	push_a;
 	size_t	push_b;
 	int		big_pivot;
-	int 	small_pivot;
-} t_values;
+	int		small_pivot;
+}	t_values;
 typedef void	(*t_move_stack)(t_stack *a);
 typedef char	t_byte;
-typedef struct	s_rr
+typedef struct s_rr
 {
 	t_byte	priority_stack;
 	size_t	iterations;
@@ -76,7 +76,7 @@ void	swap(t_stack *a);
 void	rotate(t_stack *a);
 void	reverse_rotate(t_stack *a);
 void	apply_move(t_stack *a, t_stack *b, void *move, t_byte stack);
-void	sort_stack(size_t stack_size, t_stack *a, t_stack *b, size_t iterations);
+void	sort_stack(size_t size, t_stack *a, t_stack *b, size_t iterations);
 void	five_sort(t_stack *a, t_stack *b, t_byte priority_stack);
 void	small_sort(size_t size, t_stack *a, t_stack *b, t_byte stack);
 void	three_sort(t_stack *a, t_stack *b, t_byte s);
@@ -87,7 +87,7 @@ void	two_sort(t_stack *a, t_stack *b, t_byte stack);
 void	push_rotate_a(t_stack *a, t_stack *b, t_values *values);
 void	push_rotate_b(t_stack *a, t_stack *b, t_values *values);
 void	reorder_rr(t_stack *a, t_stack *b, t_rr params, t_values *values);
-void 	free_args_list(char **args_list, bool is_split);
+void	free_args_list(char **args_list, bool is_split);
 void	init_stacks(t_stack *a, t_stack *b, char **args_list);
 void	free_nodes(t_node *top_node);
 void	read_moves(t_stack *a, t_stack *b);
