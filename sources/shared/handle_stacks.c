@@ -43,6 +43,8 @@ bool	stack_is_sorted(t_stack *stack)
 {
 	t_node	temp_node;
 
+	if (!stack || !stack->top)
+		return (false);
 	temp_node = *stack->top;
 	while (temp_node.prev)
 	{

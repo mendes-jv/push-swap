@@ -27,9 +27,9 @@ void	read_moves(t_stack *a, t_stack *b)
 		if (ft_strchr(line, ' '))
 		{
 			free(line);
-			free_nodes(a->top);
-			free_nodes(b->top);
-			ft_handle_error(ERROR_MESSAGE);
+			ft_putendl_fd("Error", STDERR_FILENO);
+			line = ft_get_next_line(STDIN_FILENO);
+			continue ;
 		}
 		handle_move(a, b, line);
 		free(line);
@@ -49,13 +49,7 @@ static void	handle_move(t_stack *a, t_stack *b, char *line)
 	else if (ft_strnstr(ROTATIONS, move, ft_strlen(ROTATIONS)))
 		handle_rotations(a, b, move + 1);
 	else
-	{
-		free(move);
-		free(line);
-		free_nodes(a->top);
-		free_nodes(b->top);
-		ft_handle_error(ERROR_MESSAGE);
-	}
+		ft_putendl_fd("Error", STDERR_FILENO);
 	free(move);
 }
 
